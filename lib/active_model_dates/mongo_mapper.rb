@@ -37,8 +37,15 @@ module ActiveModel
           month = instance_variable_get("@#{field_name}_month")
           year = instance_variable_get("@#{field_name}_year")
 
-          self.send("#{field_name}=", Date.new(year.to_i, month.to_i, day.to_i)) if day && month && year
-        end                        
+          begin
+            if day && month && year
+              date = Date.new(year.to_i, month.to_i, day.to_i)
+              self.send("#{field_name}=", date) 
+            end
+          rescue
+            errors.add field_name, I18n.t(:not_a_date, :default => 'not a date')
+          end                        
+        end
       end
     end
   end    
