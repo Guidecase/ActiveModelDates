@@ -2,8 +2,8 @@ $:.push File.expand_path("../lib", __FILE__)
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "providers"
-  s.version     = "1.0.0"
+  s.name        = "active_model_dates"
+  s.version     = "1.0.1"
   s.author      = 'Earlydoc'
   s.email       = 'developer@earlydoc.com'
   s.homepage    = 'https://www.earlydoc.com'  
