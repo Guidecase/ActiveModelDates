@@ -4,9 +4,7 @@ module ActiveModel
 
     class DateFormatValidator < ActiveModel::EachValidator
       def validate_each(record, attr_name, value)
-        begin
-          Date.parse(value) unless value.blank?
-        rescue
+        if value && !value.is_a?(Date)
           record.errors.add attr_name, I18n.t(:not_a_date, :default => 'not a date'), options
         end
       end
@@ -39,7 +37,7 @@ module ActiveModel
           month = instance_variable_get("@#{field_name}_month")
           year = instance_variable_get("@#{field_name}_year")
 
-          self.send("#{field_name}=", Date.new(year,month,day)) if day && month && year
+          self.send("#{field_name}=", Date.new(year.to_i, month.to_i, day.to_i)) if day && month && year
         end                        
       end
     end

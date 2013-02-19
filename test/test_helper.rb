@@ -15,3 +15,13 @@ class MockModel
     valid?
   end
 end
+
+class MockClass
+  include ActiveModel::Validations
+  include ActiveModel::Validations::Callbacks
+  include ActiveModel::ActiveModelDates
+
+  attr_accessor :starts_at
+  active_date :starts_at  
+  validates_date_of :starts_at
+end

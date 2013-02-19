@@ -45,11 +45,13 @@ class MongoMapperTest < Test::Unit::TestCase
     assert_nil @model.starts_at
     @model.save
     assert_equal Date.today, @model.starts_at
+    assert @model.errors[:starts_at].blank?
   end
 
   def test_validates_date_of
-    @model.starts_at = '10101010101010101010'
-    @model.save
+    @model = MockClass.new
+    @model.starts_at = '10101010101010101010b'
+    @model.valid?
     assert_equal ['not a date'], @model.errors[:starts_at]
   end
 end
