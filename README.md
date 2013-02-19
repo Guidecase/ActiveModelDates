@@ -13,7 +13,7 @@ Then include the extension in your class and use the `active_date` class method 
 
     class Appointment
       include ActiveModel::ActiveModelDates
-
+      ...
       key :starts_at, Date, :required => true
       active_date :starts_at
     end
@@ -34,6 +34,13 @@ When populated, the date field is set `before_validation` from the day/month/yea
     appointment = Appointment.new :starts_at => Date.new :day => 4, :month => 0, :year => 2013
     appointment.save
     appointment.starts_at => 'January 1, 2013'
+
+The gem also provides a `validates_date_of` validation method that uses `Date.parse` to check the format of the given date field.
+
+    class Appointment
+      ...
+      validates_date_of :starts_at
+    end
 
 ### License
 

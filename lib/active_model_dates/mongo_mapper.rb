@@ -1,8 +1,22 @@
 module ActiveModel
   module ActiveModelDates
-    extend ActiveSupport::Concern
+    extend  ActiveSupport::Concern
+
+    class DateFormatValidator < ActiveModel::EachValidator
+      def validate_each(record, attr_name, value)
+        begin
+          Date.parse(value) unless value.blank?
+        rescue
+          record.errors.add attr_name, I18n.t(:not_a_date, :default => 'not a date'), options
+        end
+      end
+    end    
   
     module ClassMethods
+      def validates_date_of(*attr_names)
+        validates_with DateFormatValidator, _merge_attributes(attr_names)
+      end
+
       def active_date(field_name)
         attr_writer "#{field_name}_year"
         define_method "#{field_name}_year" do

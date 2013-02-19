@@ -8,6 +8,7 @@ class MockModel
   include ActiveModel::ActiveModelDates
 
   key :starts_at, Date, :required => true
+  validates_date_of :starts_at
   active_date :starts_at  
 
   def save
